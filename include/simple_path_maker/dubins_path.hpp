@@ -64,6 +64,53 @@ private:
   // 座標変換や向きの計算を行う補助関数
   double normalizeAngle(double angle);
 
+  double DubinsPathGenerator::calculateLSL(
+    const geometry_msgs::msg::PoseStamped& start,
+    const geometry_msgs::msg::PoseStamped& goal)
+  {
+    // 始点と終点の座標と角度を取得
+    double dx = goal.pose.position.x - start.pose.position.x;
+    double dy = goal.pose.position.y - start.pose.position.y;
+    double D = std::sqrt(dx * dx + dy * dy);
+    double d = D / turning_radius_;
+    double theta = std::atan2(dy, dx);
+    double alpha = normalizeAngle(start.pose.orientation.z - theta);
+    double beta = normalizeAngle(goal.pose.orientation.z - theta);
+    return d + std::abs(alpha) + std::abs(beta);  // LSL 経路長
+  }
+
+  double DubinsPathGenerator::calculateRSR(
+    const geometry_msgs::msg::PoseStamped& start,
+    const geometry_msgs::msg::PoseStamped& goal)
+  {
+    // 始点と終点の座標と角度を取得
+    double dx = goal.pose.position.x - start.pose.position.x;
+    double dy = goal.pose.position.y - start.pose.position.y;
+    double D = std::sqrt(dx * dx + dy * dy);
+    double d = D / turning_radius_;
+    double theta = std::atan2(dy, dx);
+    double alpha = normalizeAngle(start.pose.orientation.z - theta);
+    double beta = normalizeAngle(goal.pose.orientation.z - theta);
+    return d + std::abs(alpha) + std::abs(beta);  // RSR 経路長
+  }
+
+  double DubinsPathGenerator::calculateLSR(
+     const geometry_msgs::msg::PoseStamped& start,
+     const geometry_msgs::msg::PoseStamped& goal)
+  {
+    // LSR 計算のロジック
+    // （LSLと同様の計算を行い、曲がり方を変更する）
+    return 0.0;  // 実際のLSR計算をここに追加
+  }
+
+  double DubinsPathGenerator::calculateRSL(
+    const geometry_msgs::msg::PoseStamped& start,
+    const geometry_msgs::msg::PoseStamped& goal)
+  {
+    // RSL 計算のロジック
+    // （RSRと同様の計算を行い、曲がり方を変更する）
+    return 0.0;  // 実際のRSL計算をここに追加
+  }
 }
 
 #endif  // DUBINS_PATH_GENERATOR_HPP
