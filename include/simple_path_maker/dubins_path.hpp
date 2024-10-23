@@ -56,14 +56,19 @@ private:
 
   double turning_radius_;  // 車両の最小旋回半径
 
-  // 内部で Dubins パスを計算
   std::vector<geometry_msgs::msg::PoseStamped> calculateDubinsPath(
       const geometry_msgs::msg::PoseStamped& start,
       const geometry_msgs::msg::PoseStamped& goal);
-
-  // 座標変換や向きの計算を行う補助関数
   double normalizeAngle(double angle);
 
+  /*
+  LSL
+  LRL
+  LSR
+  RSR
+  RLR
+  RSL
+  */
   double DubinsPathGenerator::calculateLSL(
     const geometry_msgs::msg::PoseStamped& start,
     const geometry_msgs::msg::PoseStamped& goal)
@@ -79,7 +84,7 @@ private:
     return d + std::abs(alpha) + std::abs(beta);  // LSL 経路長
   }
 
-  double DubinsPathGenerator::calculateRSR(
+  double DubinsPathGenerator::RSR(
     const geometry_msgs::msg::PoseStamped& start,
     const geometry_msgs::msg::PoseStamped& goal)
   {
@@ -94,7 +99,7 @@ private:
     return d + std::abs(alpha) + std::abs(beta);  // RSR 経路長
   }
 
-  double DubinsPathGenerator::calculateLSR(
+  double DubinsPathGenerator::LSR(
      const geometry_msgs::msg::PoseStamped& start,
      const geometry_msgs::msg::PoseStamped& goal)
   {
@@ -103,7 +108,7 @@ private:
     return 0.0;  // 実際のLSR計算をここに追加
   }
 
-  double DubinsPathGenerator::calculateRSL(
+  double DubinsPathGenerator::RSL(
     const geometry_msgs::msg::PoseStamped& start,
     const geometry_msgs::msg::PoseStamped& goal)
   {
