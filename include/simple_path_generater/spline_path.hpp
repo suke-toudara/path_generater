@@ -5,16 +5,20 @@
 #include <vector>
 #include <cmath>
 
-class SplinePathNode : public rclcpp::Node
+class SplinePathNode 
 {
 public:
-    SplinePathNode() : Node("spline_path_node")
-    {
+    SplinePathNode();
+
+    void generatePath(
+        geometry_msgs::msg::PoseStamped &waypoints, 
+        nav_msgs::msg::Path &path_msg
+    ){
     }
 private:
-    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher_;
-
-    std::vector<Eigen::Vector2d> interpolateWaypoints(const std::vector<double> &waypoints_x, const std::vector<double> &waypoints_y)
+    std::vector<geometry_msgs::msg::PoseStamped> interpolateWaypoints(
+        const geometry_msgs::msg::PoseStamped & waypoints
+    )
     {
         std::vector<Eigen::Vector2d> result;
 
