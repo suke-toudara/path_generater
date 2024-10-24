@@ -7,8 +7,9 @@
 
 class SimplelinePath : public rclcpp::Node
 {
+
 public:
-    SimplelinePath();
+    explicit SimplelinePath(const rclcpp::NodeOptions & options);
 private:
     void generatePath(
         geometry_msgs::msg::PoseStamped &waypoints, 
