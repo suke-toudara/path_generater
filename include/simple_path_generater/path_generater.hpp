@@ -12,7 +12,7 @@ namespace path_generater
 class PathGenerater : public rclcpp::Node
 {
 public:
-    PathGenerater();
+    explicit PathGenerater(const rclcpp::NodeOptions & options);
 
 private:
     void waypoint_cb(const geometry_msgs::msg::PoseStamped & waypoints);
