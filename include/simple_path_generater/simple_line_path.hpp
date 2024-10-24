@@ -5,11 +5,10 @@
 #include <vector>
 #include <cmath>
 
-class SimplelinePath : public rclcpp::Node
+class SimplelinePath
 {
-
 public:
-    explicit SimplelinePath(const rclcpp::NodeOptions & options);
+    SimplelinePath();
 private:
     void generatePath(
         geometry_msgs::msg::PoseStamped &waypoints, 
