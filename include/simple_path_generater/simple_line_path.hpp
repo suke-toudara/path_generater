@@ -42,12 +42,12 @@ private:
     }
     
     std::vector<geometry_msgs::msg::PoseStamped> interpolateWaypoints(
-        const geometry_msgs::msg::PoseStamped &waypoints
+        const geometry_msgs::msg::PoseStamped & waypoints
     )
     {
         std::vector<geometry_msgs::msg::PoseStamped> result;
         int n = waypoints.size();
-        double interpolation_step_m_ = 0.1; // 補完間隔
+        double interpolation_step_m_ = 0.3; // 補完間隔[m]
 
         for (int i = 0; i < n - 1; ++i)
         {
@@ -72,7 +72,7 @@ private:
                 // pose.header = header;
                 pose.pose.position.x = x;
                 pose.pose.position.y = y;
-                pose.pose.position.z = 0.0;  // z軸は固定
+                pose.pose.position.z = 0.0; 
                 pose.pose.orientation = createQuaternionFromYaw(yaw);
                 result.push_back(pose);
             }
