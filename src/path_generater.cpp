@@ -10,7 +10,7 @@ PathGenerater::PathGenerater() : Node("path_generater",option)
     path_pub_ = this->create_publisher<nav_msgs::msg::Path>("generated_path", 10);
 }
 
-void PathGenerater::waypoint_callback(const geometry_msgs::msg::PoseStamped & waypoints)
+void PathGenerater::waypoint_cb(const geometry_msgs::msg::PoseStamped & waypoints)
 {
     generate_path(waypoints);
 }
