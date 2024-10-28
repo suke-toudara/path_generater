@@ -5,6 +5,9 @@
 #include <vector>
 #include <cmath>
 
+/*
+Si​(x)=ai​+bi​(x−xi​)+ci​(x−xi​)2+di​(x−xi​)3
+*/
 class SplinePathNode 
 {
 public:
