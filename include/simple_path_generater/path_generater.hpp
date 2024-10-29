@@ -7,7 +7,9 @@
 #include <nav_msgs/msg/path.hpp>
 #include <vector>
 #include "simple_path_generater/simple_line_path.hpp"
-#include "simple_path_generater/spline_path.hpp"
+//#include "simple_path_generater/spline_path.hpp"
+#include "simple_path_generater/sp.hpp"
+
 
 namespace path_generater
 {    
@@ -27,7 +29,6 @@ private:
     geometry_msgs::msg::PoseWithCovarianceStamped robot_pose_;
     SimplelinePath simp_line_path;
     SplinePath spline_path;
-    
 };
 } // namespace path_generater
 
