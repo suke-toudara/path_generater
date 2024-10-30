@@ -14,22 +14,13 @@ public:
         const geometry_msgs::msg::PoseWithCovarianceStamped & robot_pose,
         nav_msgs::msg::Path &path_msg 
     ){
-        std::vector<geometry_msgs::msg::PoseStamped> way_points = interpolateWaypoints(waypoints,robot_pose);
-        for (const auto &point : way_points)
-        {
-            geometry_msgs::msg::PoseStamped pose;
-            pose.header = path_msg.header;
-            pose.pose.position.x = point.pose.position.x;
-            pose.pose.position.y = point.pose.position.y;
-            pose.pose.position.z = point.pose.position.z;
-            pose.pose.orientation.w = point.pose.orientation.z; 
-            path_msg.poses.push_back(pose);
-        }
+        interpolateWaypoints(waypoints,robot_pose,path_msg);
     }
 private:
-    std::vector<geometry_msgs::msg::PoseStamped> interpolateWaypoints(
+    void interpolateWaypoints(
         const geometry_msgs::msg::PoseArray & waypoints,
         const geometry_msgs::msg::PoseWithCovarianceStamped & robot_pose
+        nav_msgs::msg::Path &path_msg
     )
     {
         std::vector<double> X; 
@@ -48,16 +39,24 @@ private:
         tk::spline sx, sy;
         sx.set_points(t_values,X,type);
         sy.set_points(t_values,Y,type);
-
-        std::vector<geometry_msgs::msg::PoseStamped> result;
+        
+        //初期位置
+        geometry_msgs::msg::PoseStamped init_pose;
+        init_pose.header = path_msg.header;
+        init_pose.pose.position.x = robot_pose.pose.pose.position.x;
+        init_pose.pose.position.y = robot_pose.pose.pose.position.y;
+        init_pose.pose.position.z = robot_pose.pose.pose.position.z;
+        init_pose.pose.orientation.w = robot_pose.pose.pose.orientation.z; 
+        path_msg.poses.push_back(init_pose)
+            
         for (double t = 0.0; t <= static_cast<double>(t_values.back()); t += 0.1) {
             geometry_msgs::msg::PoseStamped pose;
-            pose.header = waypoints.header;
+            pose.header = path_msg.header;
             pose.pose.position.x = sx(t);
             pose.pose.position.y = sy(t);
-            pose.pose.position.z = 0.0;
-            result.push_back(pose);
-        }        
-        return result;
+            pose.pose.position.z = 0;
+            path_msg.poses.push_back(pose);
+        }
     }
 };
+
