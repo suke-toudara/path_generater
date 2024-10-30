@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="keeeesukee@gmail.com">suke</maintainer>
-  <license>TODO: License declaration</license>
+  <license>GNU GENERAL</license>
 
   <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
