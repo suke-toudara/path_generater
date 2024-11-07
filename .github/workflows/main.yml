@@ -1,4 +1,4 @@
-name: path_generater github action
+name: BuildTest
 
 on: [push]
 
